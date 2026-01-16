@@ -2,7 +2,6 @@
 
 > **Next-Generation Shared Truckload Logistics - Better Than FlockFreight**
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/github?repo=sandeepgoriparthi/shared-logistics-platform)
 
 A comprehensive shared logistics platform that uses advanced optimization algorithms and machine learning to achieve superior freight pooling efficiency.
 
