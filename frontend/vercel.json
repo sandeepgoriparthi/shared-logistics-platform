@@ -1,0 +1,12 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "installCommand": "npm install",
+  "devCommand": "npm run dev",
+  "regions": ["iad1"],
+  "env": {
+    "NEXT_PUBLIC_APP_NAME": "SharedLogistics",
+    "NEXT_PUBLIC_MAP_STYLE": "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
+  }
+}
