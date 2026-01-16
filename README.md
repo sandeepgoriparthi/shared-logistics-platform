@@ -2,6 +2,9 @@
 
 > **Next-Generation Shared Truckload Logistics - Better Than FlockFreight**
 
+[![Deploy Frontend on Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/sandeepgoriparthi/shared-logistics-platform&root-directory=frontend&env=NEXT_PUBLIC_API_URL&envDescription=Backend%20API%20URL%20from%20Railway)
+[![Deploy Backend on Railway](https://railway.app/button.svg)](https://railway.app/template/shared-logistics?referralCode=)
+
 A comprehensive shared logistics platform that uses advanced optimization algorithms and machine learning to achieve superior freight pooling efficiency.
 
 ## Key Differentiators vs FlockFreight
