@@ -11,7 +11,7 @@ import structlog
 import uvicorn
 
 from config.settings import get_settings
-from .routes import shipments, quotes, pooling, carriers, analytics
+from .routes import shipments, quotes, pooling, carriers, analytics, auth
 
 logger = structlog.get_logger()
 settings = get_settings()
@@ -93,6 +93,7 @@ async def general_exception_handler(request, exc):
 
 
 # Include routers
+app.include_router(auth.router, prefix="/api/v1/auth", tags=["Authentication"])
 app.include_router(shipments.router, prefix="/api/v1/shipments", tags=["Shipments"])
 app.include_router(quotes.router, prefix="/api/v1/quotes", tags=["Quotes"])
 app.include_router(pooling.router, prefix="/api/v1/pooling", tags=["Pooling"])

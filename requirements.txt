@@ -48,3 +48,8 @@ kafka-python>=2.0.2
 # ML Data (optional - for Kaggle datasets)
 kagglehub>=0.2.0
 pyarrow>=14.0.2
+
+# Authentication
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+python-multipart>=0.0.6

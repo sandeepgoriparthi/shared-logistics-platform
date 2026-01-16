@@ -9,19 +9,23 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Eye, EyeOff, Loader2, Mail, Lock, User, Building2, Check, X } from "lucide-react"
+import { Eye, EyeOff, Loader2, Mail, Lock, User, Building2, Check, X, AlertCircle } from "lucide-react"
 import Link from "next/link"
+import { useAuth } from "@/lib/auth-context"
+import type { UserRole } from "@/lib/api"
 
 export function RegisterForm() {
   const router = useRouter()
+  const { register } = useAuth()
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     companyName: "",
-    accountType: "",
+    accountType: "" as UserRole | "",
     password: "",
     agreeToTerms: false,
   })
@@ -36,16 +40,33 @@ export function RegisterForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
+    setError(null)
 
-    // Simulate registration
-    await new Promise((resolve) => setTimeout(resolve, 1500))
-
-    setIsLoading(false)
-    router.push("/")
+    try {
+      await register({
+        email: formData.email,
+        password: formData.password,
+        full_name: `${formData.firstName} ${formData.lastName}`.trim(),
+        company_name: formData.companyName || undefined,
+        role: (formData.accountType as UserRole) || 'shipper',
+      })
+      router.push("/")
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Registration failed. Please try again.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
+      {error && (
+        <div className="flex items-center gap-2 rounded-md bg-red-50 p-3 text-sm text-red-600">
+          <AlertCircle className="h-4 w-4" />
+          {error}
+        </div>
+      )}
+
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label htmlFor="firstName">First name</Label>
@@ -99,7 +120,6 @@ export function RegisterForm() {
             className="pl-10"
             value={formData.companyName}
             onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-            required
           />
         </div>
       </div>
@@ -108,7 +128,7 @@ export function RegisterForm() {
         <Label htmlFor="accountType">Account type</Label>
         <Select
           value={formData.accountType}
-          onValueChange={(value) => setFormData({ ...formData, accountType: value })}
+          onValueChange={(value) => setFormData({ ...formData, accountType: value as UserRole })}
         >
           <SelectTrigger id="accountType">
             <SelectValue placeholder="Select account type" />
@@ -116,7 +136,7 @@ export function RegisterForm() {
           <SelectContent>
             <SelectItem value="shipper">Shipper - I need to ship freight</SelectItem>
             <SelectItem value="carrier">Carrier - I transport freight</SelectItem>
-            <SelectItem value="broker">Broker - I arrange freight transport</SelectItem>
+            <SelectItem value="admin">Admin - Platform administrator</SelectItem>
           </SelectContent>
         </Select>
       </div>
