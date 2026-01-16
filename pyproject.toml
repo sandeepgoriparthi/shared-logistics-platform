@@ -1,0 +1,55 @@
+[project]
+name = "shared-logistics-platform"
+version = "1.0.0"
+description = "Advanced Shared Logistics Platform - Better than FlockFreight"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi>=0.109.0",
+    "uvicorn>=0.27.0",
+    "pydantic>=2.5.0",
+    "sqlalchemy>=2.0.25",
+    "alembic>=1.13.1",
+    "asyncpg>=0.29.0",
+    "redis>=5.0.1",
+    "celery>=5.3.6",
+    "numpy>=1.26.3",
+    "pandas>=2.1.4",
+    "scikit-learn>=1.4.0",
+    "torch>=2.1.2",
+    "ortools>=9.8.3296",
+    "networkx>=3.2.1",
+    "geopy>=2.4.1",
+    "h3>=3.7.6",
+    "httpx>=0.26.0",
+    "python-dotenv>=1.0.0",
+    "structlog>=24.1.0",
+    "prometheus-client>=0.19.0",
+    "kafka-python>=2.0.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.4",
+    "pytest-asyncio>=0.23.3",
+    "pytest-cov>=4.1.0",
+    "black>=24.1.0",
+    "ruff>=0.1.13",
+    "mypy>=1.8.0",
+]
+
+[build-system]
+requires = ["setuptools>=69.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "I", "N", "W"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
